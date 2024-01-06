@@ -13,7 +13,8 @@ class SoupMaker:
 
 
     def get_projects(self):
-        html_text = requests.get(self.link).text
+        projectGalleryLink = "/project-gallery"
+        html_text = requests.get(self.link + projectGalleryLink).text
         #print(html_text)
         soup = BeautifulSoup(html_text, 'lxml')
         projects = soup.find_all('a', class_='block-wrapper-link fade link-to-software')
@@ -34,7 +35,7 @@ class SoupMaker:
 
 
 
-link = 'https://developerweek-2023-hackathon.devpost.com/project-gallery'
+link = 'https://developerweek-2023-hackathon.devpost.com'
 soup_obj = SoupMaker(link)
 soup_obj.get_projects()
 
