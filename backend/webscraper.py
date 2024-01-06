@@ -19,16 +19,23 @@ class SoupMaker:
         projects = soup.find_all('a', class_='block-wrapper-link fade link-to-software')
         for project in projects:
 
+            proj_link = project['href'] if 'href' in project.attrs else None
             title_div = project.find('div', class_='software-entry-name entry-body')
             title_h5 = title_div.find('h5') if title_div else None
             title = title_h5.text.strip() if title_h5 else "Untitled"
 
-            image_alt = project.find('img alt', class_="software_thumbnail_image image-replacement")
+
+
+            image = project.find('img', class_="software_thumbnail_image image-replacement")
+            #img_tag = project.find('img', class_='software-thumbnail')
+            img_src = image['src'] if image and 'src' in image.attrs else None
+
 
 
             print('--------------------------------------------------------------------')
             print(f'Title: {title}')
-            print(f'Image_Alt: {image_alt}')
+            print(f'Image: {img_src}')
+            print(f'Project Link: {proj_link}')
             print('--------------------------------------------------------------------')
 
 
