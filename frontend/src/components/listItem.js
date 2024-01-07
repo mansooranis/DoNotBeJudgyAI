@@ -7,7 +7,7 @@ import Summary from './summary';
 import MarketAbility from './marketAbility';
 import Originality from './similarity/originality';
 import Code from './code';
-export default function ListItem({index, project_image, project_title, project_link, project_repo_link}){
+export default function ListItem({index, project_image, project_title, project_link, project_repo_link, fetch}){
     const BACKEND_URL = "http://127.0.0.1:5000"
     const [expanded, setExpanded] = useState(false);
     const [summary, setSummary] = useState(null);
@@ -35,11 +35,13 @@ export default function ListItem({index, project_image, project_title, project_l
     }
     
     useEffect(() => {
-        const getSummary = async () => {
-            const response = await axios.post(BACKEND_URL+'/ai/summary', {"url": project_link}, {"headers": {"Content-Type": "application/json"}});
-            setSummary(response.data.summary);
+        if (fetch){
+            const getSummary = async () => {
+                const response = await axios.post(BACKEND_URL+'/ai/summary', {"url": project_link}, {"headers": {"Content-Type": "application/json"}});
+                setSummary(response.data.summary);
+            }
+            getSummary();
         }
-        getSummary();
     }, [])
 
     useEffect(() => {

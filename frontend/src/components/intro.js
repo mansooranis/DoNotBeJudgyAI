@@ -11,6 +11,7 @@ export default function Intro(){
     const [showIntro, setShowIntro] = useState(true);
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [doFetch, setDoFetch] = useState(true);
 
     const handleChange = (event) => {
         // 👇 Get input value from "event"
@@ -73,7 +74,10 @@ export default function Intro(){
                     {hackathon && <>
                         <div>Enter a hackathon link:</div>
                         <input className='w-[300px] h-[30px] border rounded-lg mt-2 text-zinc-950 pl-2 text-xs' onChange={handleChange}/>
-                        <div className=' mt-3 border p-2 rounded-md text-sm hover:cursor-pointer hover:bg-[#778DA9]' onClick={() => submit() }>Judge!!!</div>
+                        <div className=' mt-3 border p-2 rounded-md text-sm hover:cursor-pointer hover:bg-[#778DA9]' onClick={() => {
+                            setDoFetch(false)
+                            submit()
+                            } }>Judge!!!</div>
                         </>}
                 </div>}
             </div>}
@@ -81,7 +85,7 @@ export default function Intro(){
                 <div className='h-screen w-screen flex flex-col justify-center items-center'>
                     <CircularProgress color="inherit" />
                 </div>}
-            {response && <List response={response}/>}
+            {response && <List response={response} fetch={doFetch}/>}
         </>
         
     )
