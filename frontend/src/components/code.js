@@ -54,7 +54,7 @@ export default function Code({data, loading}) {
                                 </div>
                             )
                         })}
-                        {waiting && <div className="loader w-10 h-10"></div>}
+                        {waiting && <div className="loader ml-12 mt-2"></div>}
                     </div>
                     <div className="flex flex-row space-x-4  items-center"> 
                         <input className="border w-[500px] rounded-md m-2 p-2 relative bottom-0 text-black" placeholder="Enter your message" onChange={handleChange}/>

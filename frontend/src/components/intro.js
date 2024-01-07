@@ -47,7 +47,7 @@ export default function Intro(){
         <>
             {showIntro && <div className='h-screen w-screen flex flex-col justify-center items-center'>
                 <div className=' text-5xl font-bold'>DoNotBeJudgyAI</div>
-                <div className=' italic mt-2'>Judging Projects Made Easy</div>
+                <div className=' italic mt-2 '>Judging Projects Made Easy</div>
                 {showBoxes && <div className=' flex flex-row justify-center items-center gap-x-12 mt-10'>
                     <div className='w-[200px] h-[200px] rounded-lg border hover:cursor-pointer  hover:bg-[#778DA9] flex flex-col justify-center items-center'
                         onClick={() => {
