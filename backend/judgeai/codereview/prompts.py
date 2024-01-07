@@ -1,5 +1,5 @@
 code_summary_prompt = """
-Create a summary of the project based on the code.
+Create a short summary of upto 200 words for the project based on the code.
 List how much Time Requirement, Difficulty, and Readability of the code.
 Be very critical, pessimistic, and classify without bias. DO NOT OVERLOOK ANY DETAILS. Be very strict and thorough
 """

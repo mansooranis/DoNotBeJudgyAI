@@ -26,7 +26,7 @@ def get_projects_info():
     url = request.json["url"]
     soup = SoupMaker(url)
     datadict = soup.get_project_info()
-    return datadict
+    return [datadict]
 
 @app.route("/ai/summary", methods = ['POST'])
 def get_project_summary():
