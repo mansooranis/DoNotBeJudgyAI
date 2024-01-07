@@ -1,3 +1,4 @@
 .env
 __pycache__/
 code-repo-to-analyze/
+site-packages/

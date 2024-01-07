@@ -74,7 +74,27 @@ class SoupMaker:
                 # print('--------------------------------------------------------------------')
 
         return list_of_projects
-
+    def get_project_info(self):
+        html_text = requests.get(self.link).text
+        soup = BeautifulSoup(html_text, 'lxml')
+        title = soup.find('h1', {"id": "app-title"})
+        self.title = title
+        self.project_link = self.link
+        app_links = soup.find('nav', class_="app-links section")
+        # If they have links added, check for a github repo. If a github repo is linked, save the link
+        repo_link = None
+        if app_links:
+            repo_links = app_links.find_all("li")
+        
+            for link in repo_links:
+                tag = link.find('a')
+                repo_link = tag.get("href")
+                match = re.search("https://github.com/", repo_link)
+                if match:
+                    break
+                else:
+                    repo_link = None
+        return {"project_title": title, "project_image": None, "project_link": self.link, "project_repo_link": repo_link}
 
 # link = 'https://developerweek-2023-hackathon.devpost.com'
 # link = 'https://olympihacks.devpost.com/'
