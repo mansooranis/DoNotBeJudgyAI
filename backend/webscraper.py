@@ -62,7 +62,7 @@ class SoupMaker:
                 image = project.find('img', class_="software_thumbnail_image image-replacement")
                 img_src = image['src'] if image and 'src' in image.attrs else None
 
-                project_dict = {"project_title": title, "project_image": img_src, "project_link": proj_link, "project_repo_link": repo_link}
+                project_dict = {"project_title": str(title).lstrip('<h1 id="app-title">').rstrip('</h1>'), "project_image": img_src, "project_link": proj_link, "project_repo_link": repo_link}
                 list_of_projects.append(project_dict)
 
                 # Uncomment for testing
@@ -94,7 +94,7 @@ class SoupMaker:
                     break
                 else:
                     repo_link = None
-        return {"project_title": title, "project_image": None, "project_link": self.link, "project_repo_link": repo_link}
+        return {"project_title": str(title).lstrip('<h1 id="app-title">').rstrip('</h1>'), "project_image": None, "project_link": self.link, "project_repo_link": repo_link}
 
 # link = 'https://developerweek-2023-hackathon.devpost.com'
 # link = 'https://olympihacks.devpost.com/'
