@@ -14,8 +14,10 @@ class SoupMaker:
 
     def get_projects(self):
 
+        # List containing dictionaries with program data
         list_of_projects = []
 
+        # Handle pagination
         html_text = requests.get(self.link + '/project-gallery').text
         soup = BeautifulSoup(html_text, 'lxml')
         pagination_info = soup.find('div', class_="pagination-info")
@@ -28,11 +30,10 @@ class SoupMaker:
 
         for page in range(num_pages):
             html_text = requests.get(self.link + '/project-gallery' + "?page=" + str(page + 1)).text
-
             soup = BeautifulSoup(html_text, 'lxml')
-            
             projects = soup.find_all('a', class_='block-wrapper-link fade link-to-software')
 
+            # Retrieve data for each project
             for project in projects:
 
                 proj_link = project['href'] if 'href' in project.attrs else None
@@ -40,6 +41,8 @@ class SoupMaker:
                 project_html_text = requests.get(proj_link).text
                 project_soup = BeautifulSoup(project_html_text, 'lxml')
                 app_links = project_soup.find('nav', class_="app-links section")
+
+                # If they have links added, check for a github repo. If a github repo is linked, save the link
                 if app_links:
                     repo_links = app_links.find_all("li")
                 
@@ -56,13 +59,13 @@ class SoupMaker:
                 title_div = project.find('div', class_='software-entry-name entry-body')
                 title_h5 = title_div.find('h5') if title_div else None
                 title = title_h5.text.strip() if title_h5 else "Untitled"
-
                 image = project.find('img', class_="software_thumbnail_image image-replacement")
                 img_src = image['src'] if image and 'src' in image.attrs else None
 
                 project_dict = {"project_title": title, "project_image": img_src, "project_link": proj_link, "project_repo_link": repo_link}
                 list_of_projects.append(project_dict)
 
+                # Uncomment for testing
                 # print('--------------------------------------------------------------------')
                 # print(f'Title: {title}')
                 # print(f'Image: {img_src}')
@@ -72,10 +75,8 @@ class SoupMaker:
 
         return list_of_projects
 
-#link = 'https://developerweek-2023-hackathon.devpost.com'
-link = 'https://olympihacks.devpost.com/'
-soup_obj = SoupMaker(link)
-projects_list = soup_obj.get_projects()
-print(projects_list)
 
-#title, project link, image link, repo link
+# link = 'https://developerweek-2023-hackathon.devpost.com'
+# link = 'https://olympihacks.devpost.com/'
+# soup_obj = SoupMaker(link)
+# projects_list = soup_obj.get_projects()
